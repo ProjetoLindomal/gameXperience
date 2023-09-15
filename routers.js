@@ -24,7 +24,7 @@ function Routers() {
       <Stack.Navigator>
         <Stack.Screen options={{headerShown:false}} name='Login' component={Login}/>
         <Stack.Screen options={{headerShown:false}} name='Cadastro' component={Cadastro}/>
-        <Stack.Screen options={{headerShown:false}} name='mainMenu' component={MainMenu}/>
+        <Stack.Screen options={{headerShown:false}} name='home' component={MainMenu}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

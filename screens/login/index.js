@@ -30,22 +30,23 @@ const getBank = async() =>{
 // })
 
 function Login({ navigation }) {
-    const [name, setName] = useState("nome@nome.nome")
-    const [password, setPassword] = useState("senha123456")
+    // const [name, setName] = useState("nome@nome.nome")
+    // const [password, setPassword] = useState("senha123456")
 
     const [dados, setDados] = useState({
-        username: "",
-        password: "",
+        username: "adm@senha123.adm",
+        password: "senha123",
     })
 
     const doLogin = () => {
 
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, name, password)
+        signInWithEmailAndPassword(auth, dados.username, dados.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                alert('logou');
+                alert(JSON.stringify(user))
+                navigation.navigate('home')
             })
             .catch((error) => {
                 alert('erro');

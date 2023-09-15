@@ -1,6 +1,7 @@
 import { View, Text, Button } from "react-native";
 // import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
+import GameBox from "../../assets/components/gameBox";
 // import { collection, query, where, getDocs } from "firebase/firestore";
 
 
@@ -9,8 +10,9 @@ function Home({ navigation }) {
 
     },[])
     return (
-        <View className='bg-purple-bright h-full w-full'>
-           
+        <View className='bg-purple-bright h-full w-full flex flex-row items-center justify-evenly'>
+           <GameBox />
+           <GameBox />
         </View>
     );
 }
