@@ -5,7 +5,6 @@ function InputGenerator({ dados, setDados, info }) {
 
     return (
         <View>
-
             {info.map((item) =>
                 <View key={item.name}>
                     <CaixaInput
