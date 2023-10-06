@@ -57,6 +57,8 @@ function Home({ navigation }) {
 
     return () => backHandler.remove();
   }, []);
+
+  
   return (
     <View className='bg-purple-bright h-full w-full flex flex-row justify-center items-center'>
       <View className = 'w-11/12 flex justify-between flex-row flex-wrap'>
