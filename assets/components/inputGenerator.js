@@ -4,7 +4,7 @@ import CaixaInput from "./caixaInput";
 function InputGenerator({ dados, setDados, info }) {
 
     return (
-        <View>
+        <View className="w-[100%]">
 
             {info.map((item) =>
                 <View key={item.name}>
@@ -13,7 +13,6 @@ function InputGenerator({ dados, setDados, info }) {
                         value={dados[item.name]}
                         placeholder={item.placeholder != undefined ? item.placeholder : item.name}
                         isPassword={item.isPassword}
-
                         onChangeText={(e) => setDados({ ...dados, [item.name]: e })}
                     />
                     {item.description}

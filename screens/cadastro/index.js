@@ -2,101 +2,120 @@ import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 // import CampoInput from "../../assets/components/textinput"
 // import CustomButton from "../../assets/components/custombutton";
 import { useState } from "react";
+import FormGenerator from "../../assets/components/formGenerator";
+import PasswordCases from "../../assets/components/passwordcases";
 // import CustomButton from "../../assets/components/customButton";
 
-function Cadastro({ navigation }) {
-    const [passo, setPasso] = useState(1);
-    const [user, setUser] = useState({
-        name: '',
-        email: '',
-        dateOfbirthday: '',
-        cep: '',
-        road: '',
-        neighborhood: '',
-        complement: '',
-        city: '', 
-        state: '',
-        password: ''
-    })
 
-    const upload = () => {
-        if (!user.name) {
-          Alert.alert('Preencha o campo nome')
-          return
+function Cadastro({ navigation }) {
+    const [caso, setCaso] = useState(0)
+    const [text, setText] = useState("Create your account")
+
+    const [dados, setDados] = useState({
+        username: "",
+        password: "",
+        name: "",
+        email: "",
+        date_of_birthday: "",
+        cep: "",
+        road: "",
+        neighborhood: "",
+        complement: "",
+        password: "",
+        confirm_password:""
+        
+    })
+    function verificarSenha(){
+        if (dados.password == dados.confirm_password){
+            Alert.alert("EQUALS")
+            navigation.navigate("/Home")
         }
-        else if (!user.email) {
-          Alert.alert('Preencha o campo dataNascimento')
-          return
+        else{
+            Alert.alert("Different")
         }
-        else if(!user.dateOfbirthday){
-            Alert.alert('Preecha o campo data')
+    }
+    const switchCase = () => {
+        switch (caso) {
+            case 0:
+                return  <FormGenerator
+                    buttonName={"Next"}
+                    // submitAction={() => navigation.navigate("mainMenu")}
+                    submitAction={() => {setCaso(1);setText("your address")}}
+                    dados={dados}
+                    setDados={setDados} info={[
+                        { name: "name", placeholder: "", req: true },
+                        { name: "email", placeholder: "", req: true },
+                        { name: "date_of_birthday", placeholder: "", req: true },
+                    ]} />
+            case 1:
+                return <FormGenerator
+                    buttonName={"Next"}
+                    // submitAction={() => navigation.navigate("mainMenu")}
+                    submitAction={() => { setCaso(2); setText("Create your password")}}
+                    dados={dados}
+                    secondButtonFunction={()=>{setCaso(0)}}
+                    secondButtonName={"Previous"}
+                    setDados={setDados} info={[
+                        { name: "cep", placeholder: "Enter your cep", req: true },
+                        { name: "road", placeholder: "Enter your road", req: true },
+                        { name: "neighborhood", placeholder: "Enter your neighborhood", req: true },
+                        { name: "complement", placeholder: "Enter your complement", req: true },
+                    ]} />
+            case 2:
+                return <FormGenerator
+                    buttonName={"Finish"}
+                    secondButtonFunction={()=>{setCaso(1)}}
+                    secondButtonName={"Previous"}
+                    // submitAction={() => navigation.navigate("mainMenu")}
+                    submitAction={() => verificarSenha()}
+                    dados={dados}
+                    setDados={setDados} info={[
+                        { name: "password", placeholder: "Enter your password", req: true },
+                        { name: "confirm_password", placeholder: "Enter your password again", req: true },
+                    ]} />
         }
-        else {   
-          setPasso(2)
-        }
-      }
-      const upload2 = () => {
-        if (!user.cep) {
-          Alert.alert('Preencha o campo cep')
-        }
-        else if (user.cep < 8) {
-          Alert.alert('CEP incompleto')
-        }
-        else {
-          setPasso(3)
-        }
-      }
-      const upload3 = () => {
-        if (!email) {
-          Alert.alert('Preencha o campo e-mail')
-        }
-        else if (!telefone) {
-          Alert.alert('Preencha o campo celular')
-        }
-        else {
-          setPasso(5)
-        }
-      }
-      const upload4 = () => {
-        if (!senha) {
-          Alert.alert('Preencha o campo senha')
-        }
-        else if (senha.length < 8) {
-          Alert.alert('Senha inválida, digite 8 números')
-        }
-        else if (confirmarSenha != senha) {
-          Alert.alert('As senhas não conferem')
-        }
-        else {
-          criarConta()  
-        }
-      }
+    }
+
+    const doLogin = () => {
+        const auth = getAuth();
+        signInWithEmailAndPas
+        sword(auth, name, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                alert('logou');
+            })
+            .catch((error) => {
+                alert('erro');
+                alert(error.message)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    }
     return (
         <View className='bg-purple-bright flex-1 h-screen justify-center grid grid-rows-2 gap-8'>
             <View className="w-full  items-center justify-end ">
-                <Image className="w-[170px] h-[160px]" source={require("../../assets/logo.png")} />
                 <Text className="text-white text-[22px]">
-                    Welcome back
+                    {text}
                 </Text>
             </View>
-            
-            <View className="flex">
-                <View className="flex h-[350px] justify-evenly items-center">
-                    {/* <CampoInput texto={"Name"} textoplaceholder={"Enter your Name"} />
-                    <CampoInput texto={"E-mail"} textoplaceholder={"Enter your E-mail"} />
-                    <CampoInput texto={"Date of birthday"} textoplaceholder={"Enter your Date of birthday"} />
-                    
-                    <CustomButton name={"Next step"} evento={() => navigation.navigate("mainMenu")} /> */}
+            <View className="flex justify-evenly items-center">
+                <View className="flex w-[90%]">
+                    {switchCase()}
+                    <Text className='text-white'>{dados.user}</Text>
                 </View>
-                <View className="items-center">
-                    <TouchableOpacity onPress={() => {navigation.navigate("Login") }}>
+                <View>
+                    <Text className='text-white'>{caso+1}/3</Text>
+                </View>
+                <View  className={caso!=0?` hidden `:`  ` + ` flex justify-center items-center pt-8`}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
                         <Text className="text-[#EACEF6]">
                             {"Do you have an account?"}
                         </Text>
+                        <Text className="text-[#FF48E2]">
+                            {"Sign up"}
+                        </Text>
                     </TouchableOpacity>
-                    <Text className="text-[#FF48E2]">
-                        {"Sign in"}
-                    </Text>
                 </View>
             </View>
 

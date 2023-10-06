@@ -9,7 +9,7 @@ const CaixaInput = ({onChangeText, title, placeholder, type, value, isPassword})
     placeholder = transform(placeholder)
 
     return (
-        <View className="w-80 p-1">
+        <View className="w-[100%] pb-6">
             <Text className="text-white font-semibold pb-2">{title}</Text> 
             <TextInput 
                 className="p-3 rounded-lg text-white border border-[#BB0FD7]" 
