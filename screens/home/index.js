@@ -1,19 +1,68 @@
-import { View, Text, Button, ScrollView } from "react-native";
-// import { db } from "../../firebaseConfig";
-import { useEffect } from "react";
-import { HeaderPersonalizado } from "../../assets/components/tab";
-import { Image } from "react-native-elements";
-// import mortal from "../../assets/imagens/mortalkombat.png";
+import { View, Text, Button, BackHandler, Alert } from "react-native";
+import { db } from "../../firebaseConfig";
+import { useEffect, useState } from "react";
+import GameBox from "../../assets/components/gameBox";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import getDB from "../../assets/services/getDB";
 import OptionsProducts from "../../assets/components/optionsProducts.js";
 import TesteEE from "../../assets/components/teste";
 import Swiper from 'react-native-swiper'
-// import { collection, query, where, getDocs } from "firebase/firestore";
+import { HeaderPersonalizado } from "../../assets/components/tab";
+import { Image } from "react-native-elements";
 
 
 function Home({ navigation }) {
-    useEffect(() => {
+    const [games, setGames] = useState([{ "id": "0", "data": { "name": "default", "price": "0" } }])
+  useEffect(() => {
+    console.log(games);
+  }, [games])
+  const getBank = async () => {
+    setGames([])
+    console.log("inicializing...");
+    const db = await getDB();
 
-    }, [])
+    // const q = query(collection(db, "cities"), where("capital", "==", true));
+    const q = query(collection(db, "Games"));
+    const listaAuxiliar = [];
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const item = {
+        "id": doc.id,
+        "data": doc.data()
+      }
+      setGames((anteriores) => [...anteriores, item])
+    });
+
+    console.log(games);
+    console.log("finished");
+
+  }
+  useEffect(() => {
+    getBank()
+    const backAction = () => {
+      AsyncStorage.getItem("carrinho").then(res => {
+        Alert.alert('Hold on!', 'this is your cart: \n' + JSON.stringify(res), [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          // {text: 'YES', onPress: () => BackHandler.exitApp()},
+          { text: 'YES', onPress: () => navigation.navigate('home') },
+        ]);
+      })
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
     return (
         <ScrollView>
             <View className='bg-purple-bright h-full w-full flex items-center '>

@@ -5,7 +5,6 @@ function InputGenerator({ dados, setDados, info }) {
 
     return (
         <View className="w-[100%]">
-
             {info.map((item) =>
                 <View key={item.name}>
                     <CaixaInput
