@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "@react-navigation/native";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import BaseImageURI from "../services/baseImageURI";
 
 function GameBox({ uid, game, action }) {
     const gamePage = () => {
@@ -26,7 +27,8 @@ function GameBox({ uid, game, action }) {
         // .then(res=>
         //     res==null
         //     )
-        AsyncStorage.setItem("gamePage",uid)
+        console.log(JSON.stringify(game));
+        AsyncStorage.setItem("gamePage", uid)
     }
     return (
         // <TouchableOpacity onPress={()=>action()}>
@@ -35,19 +37,18 @@ function GameBox({ uid, game, action }) {
                 {game.ext != null?
                 <Image 
                 className="w-[160px] h-[100px] rounded-t-3xl" 
-                
                 source={
-                    // require("../baldurs.jpg")
-                    {uri: "https://firebasestorage.googleapis.com/v0/b/gamexperience-lindomas.appspot.com/o/"+game.name.replace(/ /g, '%20')+"."+game.ext+"?alt=media"}
-                    // {  'https://firebasestorage.googleapis.com/v0/b/gamexperience-lindomas.appspot.com/o/Sekiro%20Shadows%20Die%20Twice.jpg?alt=media'}    
+                    {uri: BaseImageURI()+game.name.replace(/ /g, '%20')+"."+game.ext+"?alt=media"}
                 } />
+                // require("../baldurs.jpg")
+                // {  'https://firebasestorage.googleapis.com/v0/b/gamexperience-lindomas.appspot.com/o/Sekiro%20Shadows%20Die%20Twice.jpg?alt=media'}    
                 :
                 <Image 
                 className="w-[160px] h-[100px] rounded-t-3xl" 
                 source={
                     // require("../baldurs.jpg")
                     
-                    {uri:'https://firebasestorage.googleapis.com/v0/b/gamexperience-lindomas.appspot.com/o/Sekiro%20Shadows%20Die%20Twice.jpg?alt=media'}
+                    {uri: BaseImageURI()+'Sekiro%20Shadows%20Die%20Twice.jpg?alt=media'}
                     } />}
                 <View className='w-[80%] h-[50%] justify-evenly'>
                     <Text className="text-white">{game.name}</Text>

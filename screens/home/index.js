@@ -5,6 +5,7 @@ import GameBox from "../../assets/components/gameBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import getDB from "../../assets/services/getDB";
+import { Link } from "@react-navigation/native";
 
 function Home({ navigation }) {
   const [games, setGames] = useState([{ "id": "0", "data": { "name": "default", "price": "0" } }])
@@ -58,14 +59,21 @@ function Home({ navigation }) {
     return () => backHandler.remove();
   }, []);
 
-  
+
   return (
     <View className='bg-purple-bright h-full w-full flex flex-row justify-center items-center'>
-      <View className = 'w-11/12 flex justify-between flex-row flex-wrap'>
+      <View className='w-11/12 flex justify-between flex-row flex-wrap'>
 
         {games.map((game) =>
           <GameBox key={game.id} uid={game.id} game={game.data} />
         )}
+        <Link to={"/carrinho"}>
+          <View className=' h-10 w-20 bg-red-500 rounded-full flex items-center justify-center'>
+            <Text className='text-white' >
+              Carrinho
+            </Text>
+          </View>
+        </Link>
       </View>
     </View>
   );

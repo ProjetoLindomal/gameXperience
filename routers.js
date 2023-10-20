@@ -8,6 +8,7 @@ import Cadastro from './screens/cadastro';
 import Produto from './screens/produto';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Carrinho from './screens/carrinho';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,10 +52,9 @@ function Routers() {
     
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen options={{headerShown:false}} name='Login' component={Login}/> */}
-        {/* <Stack.Screen options={{headerShown:false}} name='Cadastro' component={Cadastro}/> */}
         <Stack.Screen options={{headerShown:false}} name='home' component={MainMenu}/>
         <Stack.Screen options={{headerShown:false}} name='produto' component={Produto}/>
+        <Stack.Screen options={{headerShown:false}} name='carrinho' component={Carrinho}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
