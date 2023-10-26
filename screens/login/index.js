@@ -37,8 +37,12 @@ function Login({ navigation }) {
         username: "adm@senha123.adm",
         password: "senha123",
     })
+    const [errors, setErrors] = useState({
+    })
 
     const doLogin = () => {
+        alert("Logado")
+        return
         const auth = getAuth();
         signInWithEmailAndPassword(auth, dados.username, dados.password)
             .then((userCredential) => {
@@ -56,26 +60,29 @@ function Login({ navigation }) {
     }
     return (
         <View className='bg-purple-bright flex-1 h-screen justify-center grid grid-rows-2 gap-8'>
-            <View className="w-full  items-center justify-end ">
+            <View className="w-full flex-[0.4] items-center justify-end ">
                 <Image className="w-[170px] h-[160px]" source={require("../../assets/imagens/logo.png")} />
                 <Text className="text-white text-[22px]">
                     Welcome back
                 </Text>
 
             </View>
-            <View className="flex justify-evenly items-center">
+            <View className="flex justify-evenly flex-[0.8] items-center bg-[#070820] rounded-t-2xl">
                 <View className="flex h-[350px]  w-[90%]">
                     <FormGenerator
                         buttonName={"Login"}
                         // submitAction={() => navigation.navigate("mainMenu")}
                         submitAction={() => doLogin()}
                         dados={dados}
-                        
+                        errors={errors}
+                        setErrors={setErrors}
                         setDados={setDados} info={[
-                            { name: "username", placeholder: "", req: true },
-                            { name: "password", placeholder: "", isPassword: true, description: <PasswordCases />, req: true },
+                            { name: "username", placeholder: "", req: true, specificValidator: ()=>{return "aaaaa"}},
+                            { name: "password", placeholder: "", isPassword: true,  description: <PasswordCases />, req: true },
                         ]} />
+                        
                     <Text className='text-white'>{dados.user}</Text>
+                    {/* <CustomButton/> */}
                 </View>
                 <View className="items-center">
                     <TouchableOpacity onPress={() => { navigation.navigate("Cadastro") }}>

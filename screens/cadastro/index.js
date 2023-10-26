@@ -25,6 +25,8 @@ function Cadastro({ navigation }) {
         confirm_password:""
         
     })
+    const [errors, setErrors] = useState({
+    })
     function verificarSenha(){
         if (dados.password == dados.confirm_password){
             Alert.alert("EQUALS")
@@ -38,6 +40,8 @@ function Cadastro({ navigation }) {
         switch (caso) {
             case 0:
                 return  <FormGenerator
+                    errors={errors}
+                    setErrors={setErrors}
                     buttonName={"Next"}
                     // submitAction={() => navigation.navigate("mainMenu")}
                     submitAction={() => {setCaso(1);setText("your address")}}
@@ -49,6 +53,8 @@ function Cadastro({ navigation }) {
                     ]} />
             case 1:
                 return <FormGenerator
+                    errors={errors}
+                    setErrors={setErrors}
                     buttonName={"Next"}
                     // submitAction={() => navigation.navigate("mainMenu")}
                     submitAction={() => { setCaso(2); setText("Create your password")}}
@@ -63,6 +69,8 @@ function Cadastro({ navigation }) {
                     ]} />
             case 2:
                 return <FormGenerator
+                    errors={errors}
+                    setErrors={setErrors}
                     buttonName={"Finish"}
                     secondButtonFunction={()=>{setCaso(1)}}
                     secondButtonName={"Previous"}
