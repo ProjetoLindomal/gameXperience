@@ -41,33 +41,29 @@ function Home({ navigation }) {
     }
     useEffect(() => {
         getBank()
-        const backAction = () => {
-            AsyncStorage.getItem("carrinho").then(res => {
-                Alert.alert('Hold on!', 'this is your cart: \n' + JSON.stringify(res), [
-                    {
-                        text: 'Cancel',
-                        onPress: () => null,
-                        style: 'cancel',
-                    },
-                    // {text: 'YES', onPress: () => BackHandler.exitApp()},
-                    { text: 'YES', onPress: () => navigation.navigate('home') },
-                ]);
-            })
-            return true;
-        };
+        // const backAction = () => {
+        //     AsyncStorage.getItem("carrinho").then(res => {
+        //         Alert.alert('Hold on!', 'this is your cart: \n' + JSON.stringify(res), [
+        //             {
+        //                 text: 'Cancel',
+        //                 onPress: () => null,
+        //                 style: 'cancel',
+        //             },
+        //             // {text: 'YES', onPress: () => BackHandler.exitApp()},
+        //             { text: 'YES', onPress: () => navigation.navigate('home') },
+        //         ]);
+        //     })
+        //     return true;
+        // };
 
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction,
-        );
-
-        return () => backHandler.remove();
+        // return () => backHandler.remove();
     }, []);
     return (
         <ScrollView>
             <View className='bg-purple-bright h-full w-full flex items-center '>
                 <HeaderPersonalizado />
-                <View className="w-[95%]">
+                
+                <View className="w-[95%] ">
                     <Image className=" h-[22vh]" source={require("../../assets/imagens/residentEvil2.png")} />
                 </View>
                 <View className="w-[96%] items-center justify-center gap-y-12">

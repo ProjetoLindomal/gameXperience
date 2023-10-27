@@ -8,7 +8,7 @@ function GameBox({ uid, game, action }) {
     const gamePage = async () => {
     try {
         await AsyncStorage.setItem("gamePage", uid.toString());
-        navigation.navigate('produto', { productId: uid, game });
+        navigation.navigate('Produto', { productId: uid, game });
     } catch (error) {
         console.error("Erro ao salvar o valor no AsyncStorage: ", error);
     }

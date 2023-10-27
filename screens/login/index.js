@@ -10,8 +10,12 @@ import FormGenerator from "../../assets/components/formGenerator";
 
 import { collection, query, where, getDocs } from "firebase/firestore";
 import getDB from "../../assets/services/getDB";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { userAuth } from "../../assets/services/getDB";
 
 const getBank = async() =>{
+    
         const db = await getDB();
     
         const q = query(collection(db, "cities"), where("capital", "==", true));
@@ -39,17 +43,19 @@ function Login({ navigation }) {
     })
     const [errors, setErrors] = useState({
     })
+    // const auth = initializeAuth(app, {
+    //     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+    //   });
 
     const doLogin = () => {
-        alert("Logado")
-        return
         const auth = getAuth();
+        // const auth = userAuth;
         signInWithEmailAndPassword(auth, dados.username, dados.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 alert(JSON.stringify(user))
-                navigation.navigate('home')
+                navigation.navigate('Home')
             })
             .catch((error) => {
                 alert('erro');
@@ -77,7 +83,7 @@ function Login({ navigation }) {
                         errors={errors}
                         setErrors={setErrors}
                         setDados={setDados} info={[
-                            { name: "username", placeholder: "", req: true, specificValidator: ()=>{return "aaaaa"}},
+                            { name: "username", placeholder: "", req: true, specificValidator: (value)=>{return undefined}},
                             { name: "password", placeholder: "", isPassword: true,  description: <PasswordCases />, req: true },
                         ]} />
                         

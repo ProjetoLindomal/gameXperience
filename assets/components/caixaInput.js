@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity,  TextInput} from "react-native";
 
 const CaixaInput = ({onChangeText, title, placeholder, type, value, isPassword}) => {
     const transform = (par)=>{
-        return (par.charAt(0).toUpperCase() + par.slice(1)).replace("_"," ")
+        return (par.charAt(0).toUpperCase() + par.slice(1)).replace(/_/g," ")
     }
 
     title = transform(title)

@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Home from './screens/home';
 import Produto from './screens/produto';
 import Login from './screens/login';
+import Cadastro from './screens/cadastro';
 
 const Nav = createBottomTabNavigator();
 const Pilha = createNativeStackNavigator()
@@ -65,10 +66,11 @@ function Routers() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Nav.Screen options={{ headerShown: false }} name="login" component={Login} />
+        <Nav.Screen options={{ headerShown: false }} name="Login" component={Login} />
+        <Nav.Screen options={{ headerShown: false }} name="Cadastro" component={Cadastro} />
         <Nav.Screen options={{ headerShown: false }} name="Nav" component={NavBar} />
-        <Stack.Screen options={{ headerShown: false }} name='home' component={Home} />
-        <Stack.Screen options={{ headerShown: false }} name='produto' component={Produto} />
+        <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name='Produto' component={Produto} />
       </Stack.Navigator>
     </NavigationContainer>
   );

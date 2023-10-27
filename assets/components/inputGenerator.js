@@ -3,6 +3,10 @@ import CaixaInput from "./caixaInput";
 import { forwardRef, useImperativeHandle } from "react";
 
 function InputGenerator({ dados, setDados, info, errors, setErrors }, ref) {
+    const transform = (par)=>{
+        return (par.charAt(0).toUpperCase() + par.slice(1)).replace(/_/g," ")
+    }
+
     useImperativeHandle(ref, () =>({
         validate(){
             var error = {}
@@ -16,29 +20,30 @@ function InputGenerator({ dados, setDados, info, errors, setErrors }, ref) {
         }
     }));
     const validators = (field, value) => {
+        let name = transform(field.name)
         if (field?.req && value.toString() == "") {
-            return field.name + " is required";
+            return name + " is required";
         }
         if (field?.min != null && value.toString().length < field.min || field?.max != null && value.toString().length > field.max) {
             if (field.max == field.min) {
-                return field.name + " must contain " + field.max + " letters";
+                return name + " must contain " + field.max + " letters";
             }
             else if (field.max != null) {
-                return field.name + " can't contain more than " + field.max + " letters";
+                return name + " can't contain more than " + field.max + " letters";
             }
             else if (field.min != null && field.max == null) {
-                return field.name + " must contain at least " + field.min + " letters";
+                return name + " must contain at least " + field.min + " letters";
             }
             else {
-                return field.name + " must be between " + field.min + " and " + field.max;
+                return name + " must be between " + field.min + " and " + field.max;
             }
         }
         var msg = undefined
         if (field?.specificValidator != null) {
-            msg = field.specificValidator()?.valueOf();
-            if (msg != undefined || msg != "") {
-                return msg
-            }
+            msg = field.specificValidator(value)?.valueOf();
+            // if (msg != undefined || msg != "") {
+            //     return msg
+            // }
         }
         return msg
     }
