@@ -1,60 +1,79 @@
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Entypo, Ionicons , Feather } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import Home from './screens/home';
-import Login from './screens/login';
-import { Alert, BackHandler, View } from 'react-native';
-import Cadastro from './screens/cadastro';
 import Produto from './screens/produto';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Carrinho from './screens/carrinho';
+import Login from './screens/login';
+import Cadastro from './screens/cadastro';
 
-const Tab = createBottomTabNavigator();
+const Nav = createBottomTabNavigator();
+const Pilha = createNativeStackNavigator()
 
-function MainMenu() {
-  return(
-    <Tab.Navigator >
-      <Tab.Screen options={{headerShown:false}} name='Home' component={Home}/>
-    </Tab.Navigator>
+function NavBar() {
+  return (
+    <Nav.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#4D166F',
+          borderTopColor: 'transparent',
+          paddingVertical: 1,
+        },
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'white'
+      }}
+    >
+      <Pilha.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="home" size={size} color={color} />
+          )
+        }}
+      />
+      <Pilha.Screen
+        name="Notifications"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="notifications" size={size} color={color} />
+          )
+        }}
+      />
+      <Pilha.Screen
+        name="Search"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, color }) => (
+            <FontAwesome name="search" size={size} color={color} />
+          )
+        }}
+      />
+    </Nav.Navigator>
+
   )
 }
 
 function Routers() {
-  // BackHandler.addEventListener('hardwareBackPress', function(){
-  //   if(!this.onMainScreen())
-  //   alert("aaaaaaaaaa")
-  //   // AsyncStorage.getItem("gamePage").then(res => alert(res))
-  // })
-  // useEffect(() => {
-  //   const backAction = () => {
-  //     AsyncStorage.getItem("carrinho").then(res=>{
-  //     Alert.alert('Hold on!', 'this is your cart: \n'+JSON.stringify(res), [
-  //       {
-  //         text: 'Cancel',
-  //         onPress: () => null,
-  //         style: 'cancel',
-  //       },
-  //       {text: 'YES', onPress: () => BackHandler.exitApp()},
-  //     ]);})
-  //     return true;
-  //   };
-
-  //   const backHandler = BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     backAction,
-  //   );
-
-  //   return () => backHandler.remove();
-  // }, []);
-    const Stack = createNativeStackNavigator();
-  return(
-    
+  const Stack = createNativeStackNavigator();
+  return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown:false}} name='home' component={MainMenu}/>
-        <Stack.Screen options={{headerShown:false}} name='produto' component={Produto}/>
-        <Stack.Screen options={{headerShown:false}} name='carrinho' component={Carrinho}/>
+        <Nav.Screen options={{ headerShown: false }} name="Login" component={Login} />
+        <Nav.Screen options={{ headerShown: false }} name="Cadastro" component={Cadastro} />
+        <Nav.Screen options={{ headerShown: false }} name="Nav" component={NavBar} />
+        <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name='Produto' component={Produto} />
       </Stack.Navigator>
     </NavigationContainer>
   );

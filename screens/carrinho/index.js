@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
 function Carrinho({ navigation }) {
 
@@ -66,4 +68,4 @@ function Carrinho({ navigation }) {
     );
 }
 
-export default Carrinho;
+export default Produto;

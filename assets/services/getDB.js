@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage' 
 
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
@@ -18,9 +20,18 @@ const app = initializeApp(firebaseConfig);
 
 
 
+
+
 async function getDB() {
     return getFirestore(app);
 }
+
+// async function getUserAuth(){
+//     const auth = initializeAuth(app, {
+//         persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+//       });
+//       return auth
+// }
 // async function getStorage(){
 //     return getStorage(app)
 // }
@@ -29,5 +40,6 @@ var reader = new FileReader();
 
 export default getDB;
 export const storage = getStorage(app)
+
 // Initialize Cloud Firestore and get a reference to the service
 // const db = 

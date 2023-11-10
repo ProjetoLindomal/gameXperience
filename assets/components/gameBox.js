@@ -1,8 +1,8 @@
+import { Link, useNavigation } from "@react-navigation/native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "@react-navigation/native";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import BaseImageURI from "../services/baseImageURI";
-import GetGameImage from "./getGameImage";
 
 function GameBox({ uid, game, action }) {
     const gamePage = () => {
@@ -61,8 +61,9 @@ function GameBox({ uid, game, action }) {
                 </View>
             </View>
         </Link>
-        // </TouchableOpacity>
-    );
+    //</TouchableOpacity>
+    // </TouchableOpacity>
+);
 }
 
 export default GameBox;

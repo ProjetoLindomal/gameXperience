@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize:{
+        base: ['16px', '24px'],
+      },
       colors:{
         purple:{
           bright:"#27053C",

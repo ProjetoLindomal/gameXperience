@@ -1,8 +1,10 @@
 import { withExpoSnack } from 'nativewind'
 import Routers from './routers';
 import { View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function App() {
+  
   return(
     
     <Routers/>
