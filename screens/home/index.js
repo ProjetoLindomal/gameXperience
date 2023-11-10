@@ -14,7 +14,7 @@ function Home({ navigation }) {
   }, [games])
   const getBank = async () => {
     setGames([])
-    console.log("inicializing...");
+    console.log("home inicializing...");
     const db = await getDB();
 
     // const q = query(collection(db, "cities"), where("capital", "==", true));
@@ -31,7 +31,7 @@ function Home({ navigation }) {
     });
 
     console.log(games);
-    console.log("finished");
+    console.log("home finished");
 
   }
   useEffect(() => {

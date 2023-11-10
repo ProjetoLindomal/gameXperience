@@ -5,6 +5,7 @@ import { View, Text } from "react-native";
 function Carrinho({ navigation }) {
 
     const [carrinho, setCarrinho] = useState([{ "id": "", "name": "", "price": 0, "qtd": 0 }])
+
     useEffect(() => {
         // AsyncStorage.getItem("gamePage").then(res => setGame(res))
         AsyncStorage.getItem("carrinho").then(res => res == null ? setCarrinho([{}]) : setCarrinho(JSON.parse(res)))
