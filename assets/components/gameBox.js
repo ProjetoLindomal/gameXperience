@@ -1,8 +1,8 @@
 import { Link, useNavigation } from "@react-navigation/native";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Link } from "@react-navigation/native";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import GetGameImage from "./getGameImage";
+import BaseImageURI from "../services/baseImageURI";
 
 function GameBox({ uid, game, action }) {
     const gamePage = () => {
@@ -32,8 +32,8 @@ function GameBox({ uid, game, action }) {
         AsyncStorage.setItem("gamePage", uid)
     }
     return (
-        // <TouchableOpacity onPress={()=>action()}>
-        <Link to={"/produto"} onPress={() => gamePage()}>
+        // <TouchableOpacity onPress={()=>action()}>r
+        <Link to={"/Produto"} onPress={() => gamePage()}>
             <View className="bg-purple-900 w-[160px] h-[200] items-center rounded-3xl">
                 {game.ext != null ?
                     <View className="w-[160px] h-[100px] rounded-t-3xl">
@@ -43,13 +43,16 @@ function GameBox({ uid, game, action }) {
                     // require("../baldurs.jpg")
                     // {  'https://firebasestorage.googleapis.com/v0/b/gamexperience-lindomas.appspot.com/o/Sekiro%20Shadows%20Die%20Twice.jpg?alt=media'}    
                     :
-                    <Image
-                        className="w-[160px] h-[100px] rounded-t-3xl"
-                        source={
-                            // require("../baldurs.jpg")
+                    <View>
+                        {/* <Text>aaaa</Text> */}
+                        <Image
+                            className="w-[160px] h-[100px] rounded-t-3xl"
+                            source={
+                                // require("../baldurs.jpg")
 
-                            { uri: BaseImageURI() + 'Sekiro%20Shadows%20Die%20Twice.jpg?alt=media' }
-                        } />
+                                { uri: BaseImageURI() + 'Sekiro%20Shadows%20Die%20Twice.jpg?alt=media' }
+                            } />
+                    </View>
                 }
                 <View className='w-[80%] h-[50%] justify-evenly'>
                     <Text className="text-white">{game.name}</Text>
@@ -61,9 +64,9 @@ function GameBox({ uid, game, action }) {
                 </View>
             </View>
         </Link>
-    //</TouchableOpacity>
-    // </TouchableOpacity>
-);
+        //</TouchableOpacity>
+        // </TouchableOpacity>
+    );
 }
 
 export default GameBox;

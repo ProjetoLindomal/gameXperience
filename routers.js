@@ -8,7 +8,6 @@ import Home from './screens/home';
 import Produto from './screens/produto';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Carrinho from './screens/carrinho';
 import Login from './screens/login';
 import Cadastro from './screens/cadastro';
 import Carrinho from './screens/carrinho';
@@ -73,10 +72,12 @@ function NavBar() {
       />
 
       <Pilha.Screen
+        name='Produto'
         options={{ 
           headerShown: false, 
           tabBarShowLabel: null,
-          tabBarIconStyle: { display: "none" }, }} name= "asas" component={Produto} />
+          tabBarIconStyle: { display: "none" }, }} 
+          component={Produto} />
     </Nav.Navigator>
 
   )

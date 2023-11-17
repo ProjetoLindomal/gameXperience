@@ -55,7 +55,7 @@ function Home({ navigation }) {
         //         ]);
         //     })
         //     return true;
-        // };
+        // }; 
 
         // return () => backHandler.remove();
     }, []);
