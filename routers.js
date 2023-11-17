@@ -2,12 +2,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo, Ionicons , Feather } from '@expo/vector-icons';
+import { Entypo, Ionicons, Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import Home from './screens/home';
 import Produto from './screens/produto';
 import Login from './screens/login';
 import Cadastro from './screens/cadastro';
+import Carrinho from './screens/carrinho';
+import UserProfile from './screens/userprofile';
 
 const Nav = createBottomTabNavigator();
 const Pilha = createNativeStackNavigator()
@@ -47,15 +49,31 @@ function NavBar() {
         }}
       />
       <Pilha.Screen
-        name="Search"
-        component={Home}
+        name="Cart"
+        component={Carrinho}
         options={{
           headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="search" size={size} color={color} />
+            <Ionicons name="cart" size={size} color={color} />
           )
         }}
       />
+      <Pilha.Screen
+        name="User"
+        component={UserProfile}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ size, color }) => (
+            <FontAwesome name="user" size={size} color={color} />
+          )
+        }}
+      />
+
+      <Pilha.Screen
+        options={{ 
+          headerShown: false, 
+          tabBarShowLabel: null,
+          tabBarIconStyle: { display: "none" }, }} name= "asas" component={Produto} />
     </Nav.Navigator>
 
   )
@@ -66,11 +84,11 @@ function Routers() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Nav.Screen options={{ headerShown: false }} name="Login" component={Login} />
-        <Nav.Screen options={{ headerShown: false }} name="Cadastro" component={Cadastro} />
         <Nav.Screen options={{ headerShown: false }} name="Nav" component={NavBar} />
         <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-        <Stack.Screen options={{ headerShown: false }} name='Produto' component={Produto} />
+        <Stack.Screen options={{ headerShown: false }} name='Carrinho' component={Carrinho} />
+        <Nav.Screen options={{ headerShown: false }} name="Login" component={Login} />
+        <Nav.Screen options={{ headerShown: false }} name="Cadastro" component={Cadastro} />
       </Stack.Navigator>
     </NavigationContainer>
   );
