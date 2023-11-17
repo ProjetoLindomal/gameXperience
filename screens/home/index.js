@@ -11,16 +11,17 @@ import Swiper from 'react-native-swiper'
 import { HeaderPersonalizado } from "../../assets/components/tab";
 import { Image } from "react-native-elements";
 
+import { Link } from "@react-navigation/native";
 
 function Home({ navigation }) {
-    const [games, setGames] = useState([{ "id": "0", "data": { "name": "default", "price": "0" } }])
-    useEffect(() => {
-        console.log(games);
-    }, [games])
-    const getBank = async () => {
-        setGames([])
-        console.log("inicializing...");
-        const db = await getDB();
+  const [games, setGames] = useState([{ "id": "0", "data": { "name": "default", "price": "0" } }])
+  useEffect(() => {
+    console.log(games);
+  }, [games])
+  const getBank = async () => {
+    setGames([])
+    console.log("home inicializing...");
+    const db = await getDB();
 
         // const q = query(collection(db, "cities"), where("capital", "==", true));
         const q = query(collection(db, "Games"));
@@ -35,8 +36,8 @@ function Home({ navigation }) {
             setGames((anteriores) => [...anteriores, item])
         });
 
-        console.log(games);
-        console.log("finished");
+    console.log(games);
+    console.log("home finished");
 
     }
     useEffect(() => {
