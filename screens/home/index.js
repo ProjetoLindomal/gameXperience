@@ -1,17 +1,15 @@
-import { View, Text, Button, BackHandler, Alert, ScrollView } from "react-native";
+import { View, Text, Button, BackHandler, Alert, ScrollView, TouchableOpacity } from "react-native";
 import { db } from "../../firebaseConfig";
 import { useEffect, useState } from "react";
 import GameBox from "../../assets/components/gameBox";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import getDB from "../../assets/services/getDB";
 import OptionsProducts from "../../assets/components/optionsProducts.js";
-import TesteEE from "../../assets/components/teste";
-import Swiper from 'react-native-swiper'
 import { HeaderPersonalizado } from "../../assets/components/tab";
 import { Image } from "react-native-elements";
 
 import { Link } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Home({ navigation }) {
   const [games, setGames] = useState([{ "id": "0", "data": { "name": "default", "price": "0" } }])
@@ -61,11 +59,14 @@ function Home({ navigation }) {
     }, []);
     return (
         <ScrollView>
-            <View className='bg-purple-bright h-full w-full flex items-center '>
+            <View className='bg-purple-950 h-full w-full flex items-center '>
                 <HeaderPersonalizado />
+                {/* <TouchableOpacity onPress={()=> AsyncStorage.setItem("carrinho","[]")}>
+                    <Text className="text-white font-semibold text-xl bg-red-600">Limpar carrinho</Text>
+                </TouchableOpacity> */}
                 
                 <View className="w-[95%] ">
-                    <Image className=" h-[22vh]" source={require("../../assets/imagens/residentEvil2.png")} />
+                    <Image className=" h-[30vh]" source={require("../../assets/imagens/residentEvil2.png")} />
                 </View>
                 <View className="w-[96%] items-center justify-center gap-y-12">
                     <View className="w-full items-center justify-center flex gap-y-3">
@@ -112,6 +113,10 @@ function Home({ navigation }) {
                                 </ScrollView>
                             </View>
                         </View>
+                    </View>
+                    <View>
+                    <Image className=" h-[22vh]" source={require("../../assets/imagens/black.png")} />
+
                     </View>
                 </View>
             </View>

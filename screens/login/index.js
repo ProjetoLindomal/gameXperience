@@ -55,7 +55,8 @@ function Login({ navigation }) {
                 // Signed in 
                 const user = userCredential.user;
                 alert(JSON.stringify(user))
-                navigation.navigate('Home')
+                AsyncStorage.setItem("user", dados.username)
+                navigation.navigate('Nav')
             })
             .catch((error) => {
                 alert('erro');

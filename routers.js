@@ -88,10 +88,10 @@ function Routers() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Nav.Screen options={{ headerShown: false }} name="Nav" component={NavBar} />
-        <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
-        <Stack.Screen options={{ headerShown: false }} name='Carrinho' component={Carrinho} />
         <Nav.Screen options={{ headerShown: false }} name="Login" component={Login} />
+        <Stack.Screen options={{ headerShown: false }} name='Home' component={Home} />
+        <Nav.Screen options={{ headerShown: false }} name="Nav" component={NavBar} />
+        <Stack.Screen options={{ headerShown: false }} name='Carrinho' component={Carrinho} />
         <Nav.Screen options={{ headerShown: false }} name="Cadastro" component={Cadastro} />
       </Stack.Navigator>
     </NavigationContainer>

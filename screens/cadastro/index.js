@@ -22,29 +22,58 @@ function Cadastro({ navigation }) {
         neighborhood: "",
         complement: "",
         password: "",
-        confirm_password:""
-        
+        confirm_password: ""
+
     })
     const [errors, setErrors] = useState({
     })
-    function verificarSenha(){
-        if (dados.password == dados.confirm_password){
-            Alert.alert("EQUALS")
-            navigation.navigate("/Home")
+    function verificarSenha() {
+        if (dados.password == dados.confirm_password) {
+            createUser()
         }
-        else{
+        else {
             Alert.alert("Different")
         }
+    }
+    const createUser = async () => {
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, dados.email, dados.password)
+            .then(async (userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                const db = await getDB();
+
+                console.log("creating user...");
+                addDoc(collection(db, "Users"), dados)
+                    .then(() => {
+                        alert("user created successifully")
+                        navigation.navigate("Login")
+                    })
+                    .catch(() => {
+                        alert("OOops :/")
+                    })
+                console.log("finished");
+
+
+
+
+            })
+            .catch((error) => {
+                alert('erro');
+                alert(error.message)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     }
     const switchCase = () => {
         switch (caso) {
             case 0:
-                return  <FormGenerator
+                return <FormGenerator
                     errors={errors}
                     setErrors={setErrors}
                     buttonName={"Next"}
                     // submitAction={() => navigation.navigate("mainMenu")}
-                    submitAction={() => {setCaso(1);setText("your address")}}
+                    submitAction={() => { setCaso(1); setText("your address") }}
                     dados={dados}
                     setDados={setDados} info={[
                         { name: "name", placeholder: "", req: true },
@@ -57,9 +86,9 @@ function Cadastro({ navigation }) {
                     setErrors={setErrors}
                     buttonName={"Next"}
                     // submitAction={() => navigation.navigate("mainMenu")}
-                    submitAction={() => { setCaso(2); setText("Create your password")}}
+                    submitAction={() => { setCaso(2); setText("Create your password") }}
                     dados={dados}
-                    secondButtonFunction={()=>{setCaso(0)}}
+                    secondButtonFunction={() => { setCaso(0) }}
                     secondButtonName={"Previous"}
                     setDados={setDados} info={[
                         { name: "cep", placeholder: "Enter your cep", req: true },
@@ -72,7 +101,7 @@ function Cadastro({ navigation }) {
                     errors={errors}
                     setErrors={setErrors}
                     buttonName={"Finish"}
-                    secondButtonFunction={()=>{setCaso(1)}}
+                    secondButtonFunction={() => { setCaso(1) }}
                     secondButtonName={"Previous"}
                     // submitAction={() => navigation.navigate("mainMenu")}
                     submitAction={() => verificarSenha()}
@@ -84,22 +113,6 @@ function Cadastro({ navigation }) {
         }
     }
 
-    const doLogin = () => {
-        const auth = getAuth();
-        signInWithEmailAndPas
-        sword(auth, name, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                alert('logou');
-            })
-            .catch((error) => {
-                alert('erro');
-                alert(error.message)
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
-    }
     return (
         <View className='bg-purple-bright flex-1 h-screen justify-center grid grid-rows-2 gap-8'>
             <View className="w-full  items-center justify-end ">
@@ -113,9 +126,9 @@ function Cadastro({ navigation }) {
                     <Text className='text-white'>{dados.user}</Text>
                 </View>
                 <View>
-                    <Text className='text-white'>{caso+1}/3</Text>
+                    <Text className='text-white'>{caso + 1}/3</Text>
                 </View>
-                <View  className={caso!=0?` hidden `:`  ` + ` flex justify-center items-center pt-8`}>
+                <View className={caso != 0 ? ` hidden ` : `  ` + ` flex justify-center items-center pt-8`}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
                         <Text className="text-[#EACEF6]">
                             {"Do you have an account?"}
